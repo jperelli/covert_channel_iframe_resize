@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <title>1</title>
+</head>
+
+  <body onresize="resize()">
+    <pre id="message"></pre>
+
+    <script>
+      var initialHeight = parseInt(window.innerHeight);
+      var msg = "";
+      var count = 1;
+      
+      function resize() {
+        var h = Math.abs(parseInt(window.innerHeight) - initialHeight);
+        //console.log(String.fromCharCode(h), h);
+        if ( h != 0 )
+          msg += String.fromCharCode(h)
+        else
+          print();
+      }
+      
+      function print() {
+        var e = document.getElementById("message");
+        e.innerHTML += "Received message #" + count + ": " + msg + "\n";
+        msg = "";
+        count += 1;
+      }
+    </script>
+  </body>
+
+</html>

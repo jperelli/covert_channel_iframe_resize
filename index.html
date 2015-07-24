@@ -1,1 +1,40 @@
-hello
+<html>
+
+  <head>
+    <title>1</title>
+  </head>
+
+  <body>
+
+    <div>
+      <input placeholder="message" id="message" />
+      <button onclick="send()">Send</button>
+    </div>
+
+    <iframe id="anIframe" height="300" src="http://covert_channel_iframe_resize.jperelli.com.ar/index2.html"></iframe>
+
+    <script>
+      // I do this instead of a loop to give time to the event loop to react
+      function sendChar(iframe, msg, i, initialHeight, sign) {
+        setTimeout(function () {
+          if (i < msg.length) {
+            iframe.height = initialHeight + parseInt(msg.charCodeAt(i)) * sign;
+            sendChar(iframe, msg, i + 1, initialHeight, sign*-1);
+          }
+          else
+            iframe.height = initialHeight;
+        }, 100);
+      }
+
+
+      function send() {
+        var msg    = document.getElementById("message").value;
+        var iframe = document.getElementById("anIframe");
+        var initialHeight = parseInt(iframe.height);
+        sendChar(iframe, msg, 0, initialHeight, 1);
+      }
+    </script>
+
+  </body>
+
+</html>
